@@ -4,28 +4,19 @@ declare(strict_types=1);
 
 namespace App\Billing\Application\Query;
 
-use App\Billing\Domain\Repository\AccountRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
-#[AsMessageHandler]
-final class GetBalanceHandler
+#[AsMessageHandler(bus: 'query.bus')]
+final readonly class GetBalanceHandler
 {
-    // На этапе инфраструктуры мы можем заменить это на специализированный Query Repository или DBAL Connection
+    // Внедряем интерфейс быстрого чтения
     public function __construct(
-        private AccountRepositoryInterface $accountRepository
+        private AccountQueryInterface $accountQuery
     ) {}
 
     public function __invoke(GetBalanceQuery $query): BalanceView
     {
-        $account = $this->accountRepository->getById($query->accountId);
-        if ($account === null) {
-            throw new \InvalidArgumentException('Аккаунт не найден.');
-        }
-
-        return new BalanceView(
-            accountId: $account->getId(),
-            balance: $account->getBalance()->getAmount() / 100, // Конвертация для вывода
-            currency: $account->getBalance()->getCurrency()
-        );
+        // Просто делегируем выполнение оптимизированному DBAL-запросу
+        return $this->accountQuery->getBalanceView($query->accountId);
     }
 }
