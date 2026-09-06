@@ -1,0 +1,31 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Billing\Infrastructure\Share;
+
+use Billing\Domain\Exception\InsufficientFundsException;
+use Symfony\Component\HttpFoundation\Response;
+
+final readonly class DomainExceptionMap
+{
+    /**
+     * Карта соответствия: Класс исключения => HTTP статус-код
+     */
+    private const MAP = [
+        InsufficientFundsException::class => Response::HTTP_CONFLICT, // 409: Конфликт состояния (нет денег)
+        \InvalidArgumentException::class  => Response::HTTP_BAD_REQUEST, // 400: Неверный формат данных
+    ];
+
+    public static function getStatusCode(\Throwable $exception): int
+    {
+        foreach (self::MAP as $exceptionClass => $statusCode) {
+            if ($exception instanceof $exceptionClass) {
+                return $statusCode;
+            }
+        }
+
+        // Если это неизвестная системная ошибка (например, упала БД) — возвращаем 500
+        return Response::HTTP_INTERNAL_SERVER_ERROR;
+    }
+}
