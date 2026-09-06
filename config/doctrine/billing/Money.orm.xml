@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doctrine-mapping xmlns="http://doctrine-project.org"
-                  xmlns:xsi="http://w3.org"
-                  xsi:schemaLocation="http://doctrine-project.org
-                                      https://doctrine-project.org">
 
-    <!-- Тэг embeddable говорит о том, что у класса нет собственного ID, он часть другой таблицы -->
-    <embeddable name="Billing\Domain\Model\Money">
-        
-        <!-- Поля будут созданы в таблице billing_accounts как balance_amount и balance_currency -->
-        <field name="amount" type="integer" column="balance_amount" nullable="false"/>
-        <field name="currency" type="string" length="3" column="balance_currency" nullable="false"/>
-        
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://doctrine-project.org/schemas/orm/doctrine-mapping
+        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd
+    "
+>
+    <embeddable name="App\Billing\Domain\Model\Money">
+        <field
+            name="amount"
+            type="integer"
+            column="balance_amount"
+            nullable="false"
+        />
+        <field
+            name="currency"
+            type="string"
+            length="3"
+            column="balance_currency"
+            nullable="false"
+        />
     </embeddable>
 </doctrine-mapping>

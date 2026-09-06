@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doctrine-mapping xmlns="http://doctrine-project.org"
-                  xmlns:xsi="http://w3.org"
-                  xsi:schemaLocation="http://doctrine-project.org
-                                      https://doctrine-project.org">
 
-    <!-- Указываем полный путь к нашему доменному классу -->
-    
-        
-        <!-- Первичный ключ (UUID или строковый ID), генерируемый на стороне приложения -->
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://doctrine-project.org/schemas/orm/doctrine-mapping
+        https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd
+    "
+>
+    <entity name="App\Billing\Domain\Model\Account">
+
         <id name="id" type="string" length="36">
-            <generator class="NONE"/>
+            <generator strategy="NONE"/>
         </id>
 
-        <field name="userId" type="string" length="36" nullable="false"/>
+        <field
+            name="userId"
+            type="string"
+            length="36"
+            nullable="false"
+        />
 
-        <!-- Маппинг Value Object через embedded (встроенный объект) -->
-        <embedded name="balance" class="Billing\Domain\Model\Money" use-column-prefix="false"/>
+        <embedded
+            name="balance"
+            class="App\Billing\Domain\Model\Money"
+            use-column-prefix="false"
+        />
 
-    
+    </entity>
 </doctrine-mapping>
