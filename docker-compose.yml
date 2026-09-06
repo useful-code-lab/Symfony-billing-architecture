@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # 1. Сервис Базы Данных (PostgreSQL)
+  postgres:
+    image: postgres:16-alpine
+    container_name: billing_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: billing_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  # 2. Сервис PHP-FPM (Обработка кода)
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: billing_php
+    volumes:
+      - .:/var/www/billing:cached
+    depends_on:
+      - postgres
+
+  # 3. Фоновый воркер очередей Symfony Messenger
+  php-worker:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: billing_worker
+    volumes:
+      - .:/var/www/billing:cached
+    # Команда запускает бесконечный процесс прослушивания асинхронных событий
+    command: php bin/console messenger:consume async -vv
+    depends_on:
+      - postgres
+      - php-fpm
+
+  # 4. Веб-сервер Nginx (Входная точка для HTTP-запросов)
+  nginx:
+    image: nginx:alpine
+    container_name: billing_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/billing:cached
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php-fpm
+
+volumes:
+  pgdata:
