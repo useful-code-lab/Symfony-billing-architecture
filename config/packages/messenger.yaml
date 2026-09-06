@@ -6,6 +6,8 @@ framework:
             # Шина для Команд (изменение состояния)
             command.bus:
                 middleware:
+                    # Наш кастомный валидатор проверяет DTO на входе
+                    - 'App\Billing\Infrastructure\Share\ValidationMiddleware'                   
                     # Встроенное middleware от Doctrine: автоматически оборачивает выполнение 
                     # обработчика в транзакцию базы данных (уровня БД)
                     - doctrine_transaction

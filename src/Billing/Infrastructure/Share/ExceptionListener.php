@@ -7,6 +7,7 @@ namespace App\Billing\Infrastructure\Share;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\ValidationFailedException;
 
 final class ExceptionListener
 {
@@ -18,6 +19,28 @@ final class ExceptionListener
         if ($exception instanceof HandlerFailedException && $exception->getPrevious() !== null) {
             $exception = $exception->getPrevious();
         }
+
+        if ($exception instanceof ValidationFailedException) {
+            $errors = [];
+            
+            // Проходимся по всем нарушениям и формируем плоский список ошибок для API
+            foreach ($exception->getViolations() as $violation) {
+                $errors[$violation->getPropertyPath()] = $violation->getMessage();
+            }
+
+            $response = new JsonResponse([
+                'error' => [
+                    'code' => JsonResponse::HTTP_UNPROCESSABLE_ENTITY,
+                    'message' => 'Ошибка валидации входных данных.',
+                    'violations' => $errors
+                ]
+            ], JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+
+            $event->setResponse($response);
+            return;
+        }
+
+
 
         // 2. Определяем HTTP-статус на основе нашей карты маппинга
         $statusCode = DomainExceptionMap::getStatusCode($exception);
