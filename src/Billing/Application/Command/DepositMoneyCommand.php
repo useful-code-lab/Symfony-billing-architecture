@@ -14,7 +14,7 @@ final readonly class DepositMoneyCommand
     public function __construct(
         // Проверяем, что передан валидный UUID v4
         #[Assert\NotBlank(message: 'Идентификатор аккаунта не может быть пустым.')]
-        #[Assert\Uuid(versions: 'v4', message: 'Идентификатор аккаунта должен быть валидным UUID v4.')]
+        #[Assert\Uuid( message: 'Идентификатор аккаунта должен быть валидным UUID v4.')]
         public string $accountId,
 
         // Сумма пополнения на входе должна быть строго больше нуля
