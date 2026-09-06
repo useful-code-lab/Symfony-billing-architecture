@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Billing\Domain\Repository;
+namespace App\Billing\Domain\Repository;
 
-use Billing\Domain\Model\Account;
+use App\Billing\Domain\Model\Account;
 
 interface AccountRepositoryInterface
 {

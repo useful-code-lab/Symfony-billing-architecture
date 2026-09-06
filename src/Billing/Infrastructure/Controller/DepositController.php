@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Billing\Infrastructure\Controller;
+namespace App\Billing\Infrastructure\Controller;
 
-use Billing\Application\Command\DepositMoneyCommand;
+use App\Billing\Application\Command\DepositMoneyCommand;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

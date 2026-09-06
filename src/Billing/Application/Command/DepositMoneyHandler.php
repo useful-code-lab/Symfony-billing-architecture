@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace Billing\Application\Command;
+namespace App\Billing\Application\Command;
 
-use Billing\Domain\Model\Money;
-use Billing\Domain\Repository\AccountRepositoryInterface;
+use App\Billing\Domain\Model\Money;
+use App\Billing\Domain\Repository\AccountRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**

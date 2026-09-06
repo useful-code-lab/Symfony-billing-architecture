@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Billing\Domain\Model;
+namespace App\Billing\Domain\Model;
 
-use Billing\Domain\Exception\InsufficientFundsException;
+use App\Billing\Domain\Exception\InsufficientFundsException;
 
 class Account
 {

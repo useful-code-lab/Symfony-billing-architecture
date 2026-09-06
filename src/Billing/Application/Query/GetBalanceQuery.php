@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Billing\Application\Query;
+namespace App\Billing\Application\Query;
 
 final readonly class GetBalanceQuery
 {

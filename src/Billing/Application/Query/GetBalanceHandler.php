@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Billing\Application\Query;
+namespace App\Billing\Application\Query;
 
-use Billing\Domain\Repository\AccountRepositoryInterface;
+use App\Billing\Domain\Repository\AccountRepositoryInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler]

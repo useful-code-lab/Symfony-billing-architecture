@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Billing\Infrastructure\Persistence;
+namespace App\Billing\Infrastructure\Persistence;
 
-use Billing\Domain\Model\Account;
-use Billing\Domain\Repository\AccountRepositoryInterface;
+use App\Billing\Domain\Model\Account;
+use App\Billing\Domain\Repository\AccountRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 

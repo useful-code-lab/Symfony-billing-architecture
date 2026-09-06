@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Billing\Infrastructure\Controller;
+namespace App\Billing\Infrastructure\Controller;
 
-use Billing\Application\Query\GetBalanceQuery;
-use Billing\Application\Query\BalanceView;
+use App\Billing\Application\Query\GetBalanceQuery;
+use App\Billing\Application\Query\BalanceView;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\AsController;

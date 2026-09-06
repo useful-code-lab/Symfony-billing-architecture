@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Billing\Application\Command;
+namespace App\Billing\Application\Command;
 
 /**
  * Команда на пополнение счета.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Billing\Infrastructure\Share;
+namespace App\Billing\Infrastructure\Share;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;

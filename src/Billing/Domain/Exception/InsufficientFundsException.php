@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Billing\Domain\Exception;
+namespace App\Billing\Domain\Exception;
 
 class InsufficientFundsException extends \DomainException
 {

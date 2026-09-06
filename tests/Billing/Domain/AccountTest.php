@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Billing\Domain;
 
-use Billing\Domain\Exception\InsufficientFundsException;
-use Billing\Domain\Model\Account;
-use Billing\Domain\Model\AccountDepositedEvent;
-use Billing\Domain\Model\Money;
+use App\Billing\Domain\Exception\InsufficientFundsException;
+use App\Billing\Domain\Model\Account;
+use App\Billing\Domain\Model\AccountDepositedEvent;
+use App\Billing\Domain\Model\Money;
 use PHPUnit\Framework\TestCase;
 
 /**

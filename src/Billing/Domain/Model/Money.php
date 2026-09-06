@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Billing\Domain\Model;
+namespace App\Billing\Domain\Model;
 
 /**
  * Value Object: Деньги.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Billing\Domain\Model;
+namespace App\Billing\Domain\Model;
 
 final readonly class AccountDepositedEvent implements DomainEventInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Billing\Infrastructure\Share;
+namespace App\Billing\Infrastructure\Share;
 
-use Billing\Domain\Exception\InsufficientFundsException;
+use App\Billing\Domain\Exception\InsufficientFundsException;
 use Symfony\Component\HttpFoundation\Response;
 
 final readonly class DomainExceptionMap
