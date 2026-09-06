@@ -9,5 +9,10 @@ interface AccountRepositoryInterface
 {
     public function getById(string $id): ?Account;
 
+    /**
+     * Извлекает аккаунт и эксклюзивно блокирует строку в СУБД до конца транзакции.
+     */
+    public function getByIdForUpdate(string $id): ?Account;
+
     public function save(Account $account): void;
 }
