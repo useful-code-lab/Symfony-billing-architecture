@@ -1,22 +1,25 @@
 framework:
     messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+        # Отключаем дефолтную шину и объявляем свои собственные
+        default_bus: command.bus
+        buses:
+            # Шина для Команд (изменение состояния)
+            command.bus:
+                middleware:
+                    # Встроенное middleware от Doctrine: автоматически оборачивает выполнение 
+                    # обработчика в транзакцию базы данных (уровня БД)
+                    - doctrine_transaction
+            
+            # Шина для Запросов (чтение данных)
+            query.bus:
+                middleware: [] # Для запросов транзакции не нужны (экономим ресурсы)
 
+        # Маршрутизация сообщений (в будущем сюда можно подключить RabbitMQ/Kafka)
         transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-            # async: '%env(MESSENGER_TRANSPORT_DSN)%'
-            # failed: 'doctrine://default?queue_name=failed'
+            # Пока оставляем синхронную обработку в памяти (sync)
             sync: 'sync://'
 
         routing:
-            # Route your messages to the transports
-            # 'App\Message\YourMessage': async
-
-# when@test:
-#    framework:
-#        messenger:
-#            transports:
-#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
-#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
-#                async: 'in-memory://'
+            # Все наши команды и запросы по умолчанию будут обрабатываться синхронно
+            'Billing\Application\Command\*': sync
+            'Billing\Application\Query\*': sync
